@@ -12,14 +12,22 @@ const StockList = () => {
   const [searchParams] = useSearchParams();
   const [filteredCars, setFilteredCars] = useState(carsData);
   const budget = searchParams.get("budget");
+  const conditionParam = searchParams.get("condition");
 
   useEffect(() => {
+    let filtered = [...carsData];
+    
     if (budget === "under20") {
       // Filter logic for cars under 20 lakh would go here
       // For now, showing all cars as demo
-      setFilteredCars(carsData);
     }
-  }, [budget]);
+    
+    if (conditionParam) {
+      filtered = filtered.filter((car) => car.condition === conditionParam);
+    }
+    
+    setFilteredCars(filtered);
+  }, [budget, conditionParam]);
 
   const handleFilterChange = (filters: any) => {
     let filtered = [...carsData];
@@ -47,11 +55,23 @@ const StockList = () => {
         <div className="container mx-auto px-4">
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-foreground mb-4">Our Stock</h1>
-            {budget === "under20" && (
-              <Badge className="text-lg px-4 py-2">
-                Cars Under 20 Lakh
-              </Badge>
-            )}
+            <div className="flex gap-2 flex-wrap">
+              {budget === "under20" && (
+                <Badge className="text-lg px-4 py-2">
+                  Cars Under 20 Lakh
+                </Badge>
+              )}
+              {conditionParam === "new" && (
+                <Badge className="text-lg px-4 py-2">
+                  Brand New or Reconditioning
+                </Badge>
+              )}
+              {conditionParam === "used" && (
+                <Badge className="text-lg px-4 py-2">
+                  Used or Pre-used
+                </Badge>
+              )}
+            </div>
             <p className="text-muted-foreground mt-2">
               Showing {filteredCars.length} vehicles
             </p>
