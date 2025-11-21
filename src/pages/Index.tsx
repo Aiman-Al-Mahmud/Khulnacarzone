@@ -40,6 +40,20 @@ const Index = () => {
               Find Your Perfect Car
             </h2>
             <FilterBar />
+            
+            {/* Condition Filter Buttons */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+              <Link to="/stock-list?condition=new">
+                <Button size="lg" variant="default" className="w-full text-lg">
+                  🌟 Brand New or Reconditioning
+                </Button>
+              </Link>
+              <Link to="/stock-list?condition=used">
+                <Button size="lg" variant="default" className="w-full text-lg">
+                  🚙 Used or Pre-used
+                </Button>
+              </Link>
+            </div>
           </div>
         </section>
 
